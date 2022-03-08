@@ -25,3 +25,8 @@ command = lambda 란?
 7. 나머지 버튼 생성 (AC . = , + , - , / , *)
 사칙연산버튼은 math_button_pressed() 함수로 연결 , '=' 버튼은 equal_button_pressed() 함수로 연결
 AC 버튼, 0 버튼은 기존의 button_pressed()로 연결
+
+
+8. 각 버튼별 함수 만들기 
+앞서 만든 계산기에서 함수를 추가하여 계산이 가능하도록 해보겠습니다. 
+
