@@ -21,3 +21,7 @@ command = lambda 란?
 5. 텍스트 창에 숫자 표시하기 
 
 6. 숫자 버튼 생성 (1~9)
+
+7. 나머지 버튼 생성 (AC . = , + , - , / , *)
+사칙연산버튼은 math_button_pressed() 함수로 연결 , '=' 버튼은 equal_button_pressed() 함수로 연결
+AC 버튼, 0 버튼은 기존의 button_pressed()로 연결
