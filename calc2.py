@@ -6,6 +6,7 @@ from tkinter import ttk  # 기존 Tk() 클래스보다 그래픽이 개선 되�
 # 함수를 추가할 부분 
 
 def button_pressed(value):
+    number_entry.insert("end", value)    # 텍스트 창으로 숫자 전송.. 'end'는 오른쪽 끝에 추가하라는 의미
     print(value, "pressed")
 
 
@@ -16,9 +17,15 @@ root.geometry("200x200")
 
 # 인터페이스 (버튼, 창) 추가할 부분
 
-# 숫자 및 결과 표시창. 
+# 텍스트창의 값 저장할 변수. 
 
-number_entry = ttk.Entry(root, width = 20)
+entry_value = StringVar(root, value = '')
+
+
+# 숫자 및 결과 표시창. 
+# textvariable 속성으로 변수 설정. 
+
+number_entry = ttk.Entry(root, textvariable= entry_value, width = 10)  # width = 20 초기에는 이렇게 되어 있었다. 
 number_entry.grid(row = 0, columnspan= 1)
 
 
