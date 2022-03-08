@@ -1,34 +1,42 @@
 from tkinter import *
 from tkinter import ttk
  
-operation = ''  #연산자 저장 변수
-temp_number = 0  #이전값 저장 변수
+operation = ''  
+temp_number = 0
+# 결과 출력 상태인지 상태저장.
+answer_trigger = False
  
-# 숫자버튼 처리 함수
 def button_pressed(value):
-    # 입력값이 'AC'일때
+    global temp_number
+    global answer_trigger
     if value=='AC':
         number_entry.delete(0,'end')
+        operation = ''
+        #AC버튼 누르면, trigger 변수도 초기화.
+        answer_trigger = False
         print("AC pressed")
-    else: # 그외에 0부터 9까지 숫자일때
+    else:
+        #Trigger가 True이면, Entry 초기화후 새로입력.
+        if answer_trigger:
+            number_entry.delete(0,"end")
+            answer_trigger = False
         number_entry.insert("end",value)
         print(value,"pressed")
  
-# 사칙연산 처리
 def math_button_pressed(value):
-    global operation  #함수 바깥의 글로벌 변수사용
+    global operation 
     global temp_number
-    if not number_entry.get() == '': #기존에 입력한 숫자가 있을때만 연산버튼 인식
+    global answer_trigger
+    if not number_entry.get() == '':
         operation = value
-        temp_number = int(number_entry.get()) #입력된 숫자를 임시변수로 옮기고,
-        number_entry.delete(0,'end')  #입력칸을 비우고, 다음숫자를 입력받을 준비.
+        temp_number = int(number_entry.get())
+        number_entry.delete(0,'end')
         print(temp_number,operation)
  
-# 결과 버튼 처리
 def equal_button_pressed():
     global operation
     global temp_number
-    #연산자나 숫자가 입력되지 않으면, 실행하지 않음.
+    global answer_trigger
     if not (operation =='' and number_entry.get()==''):
         number = int(number_entry.get())
         if operation == '/':
@@ -39,12 +47,13 @@ def equal_button_pressed():
             solution = temp_number+number
         else :
             solution = temp_number-number
-        # 계산후, 숫자표시칸을 비우고, 계산결과를 표시.
         number_entry.delete(0,'end')
         number_entry.insert(0,solution)
         print(temp_number,operation,number,"=",solution)
         operation = ''
         temp_number = 0
+        # 계산 완료후, Trigger 변수 True로 변경.
+        answer_trigger = True
          
      
 root = Tk()
