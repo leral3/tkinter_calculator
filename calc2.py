@@ -23,13 +23,25 @@ def button_pressed(value):
         number_entry.insert("end",value)
         print(value,"pressed")
  
+
+# 소수점으로 int형 변환시 에러가 날 경우, float형으로 반환.
+
+def float_filter(value):
+    try: 
+        int(value)
+        return int(value)
+    except ValueError:
+        return float(value)
+
 def math_button_pressed(value):
     global operation 
     global temp_number
     global answer_trigger
     if not number_entry.get() == '':
         operation = value
-        temp_number = int(number_entry.get())
+        # float_filter 함수 호출
+        
+        temp_number = float_filter(number_entry.get())
         number_entry.delete(0,'end')
         print(temp_number,operation)
  
