@@ -12,6 +12,7 @@ def button_pressed(value):
     global temp_number
     global answer_trigger
     if value=='AC':
+        	
         number_entry.delete(0,'end')
         operation = ''
         #AC버튼 누르면, trigger 변수도 초기화.
@@ -20,7 +21,8 @@ def button_pressed(value):
     else:
         #Trigger가 True이면, Entry 초기화후 새로입력.
         if answer_trigger:
-            number_entry.delete(0,"end")
+            	
+            number_entry.delete(0,'end')
             answer_trigger = False
         number_entry.insert("end",value)
         print(value,"pressed")
@@ -52,6 +54,7 @@ def math_button_pressed(value):
         # float_filter 함수 호출
         
         temp_number = float_filter(number_entry.get())
+        	
         number_entry.delete(0,'end')
         print(temp_number,operation)
  
@@ -72,6 +75,7 @@ def equal_button_pressed():
             
         # int_changer() 함수를 한번 거쳐서 값 저장.
         solution = int_changer(solution)
+	
         number_entry.delete(0,'end')
         number_entry.insert(0,solution)
         print(temp_number,operation,number,"=",solution)
@@ -81,32 +85,31 @@ def equal_button_pressed():
         answer_trigger = True
          
 def key_input(value):
-
-    # 쉬프트 키 입력 무시 (뎃셈할 때)
+    # 쉬프트키 입력 무시.(덧셈할때)
     if not repr(value.char) == "''":
         numbers = '1234567890'
-        operator = '/*+-'
-        # 숫자키, button_pressed() 함수 호출.
-        if value.char in numbers:
+        operators = '/*+-'
+        # 숫자키 입력시, button_pressed()함수 호출.
+        if value.char in numbers :
             button_pressed(value.char)
             print(value.char)
-        # 연잔사 입력시, math_button_pressed() 함수 호출
-        elif value.char in operator:
+        # 연산자 입력시, math_button_pressed() 함수 호출. 
+        elif value.char in operators :
             math_button_pressed(value.char)
             print(value.char)
-        # 엔터키 ->=버튼
+        # 엔터키 입력 -> =버튼 
         elif value.keysym == "Return":
             equal_button_pressed()
             print("equal button pressed")
-        # ESC 키 -> AC 버튼 입력.
+        # ESC 키 입력. -> AC 버튼 입력.
         elif value.keysym == "Escape":
-            button_pressed('AC')    
+            button_pressed('AC')
             print('AC button pressed')
-        
-    print(value)
-    print(value.char)
-    print(repr(value.char))
-     
+        # BackSpace 입력시, 마지막 한글자 삭제.
+        elif value.keysym == "BackSpace":
+            number_entry.delete(len(number_entry.get())-1,'end')
+            print(number_entry)
+    
 root = Tk()
 root.title("Calculator")
 root.geometry("400x200")
