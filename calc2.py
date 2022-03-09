@@ -78,10 +78,17 @@ def equal_button_pressed():
         # 계산 완료후, Trigger 변수 True로 변경.
         answer_trigger = True
          
+def key_input(value):
+    print(value)
+    print(value.char)
+    print(repr(value.char))
      
 root = Tk()
 root.title("Calculator")
 root.geometry("300x200")
+
+
+root.bind('<Key>',key_input)
  
 entry_value = StringVar(root, value='')
  
