@@ -33,6 +33,14 @@ def float_filter(value):
     except ValueError:
         return float(value)
 
+# 두 값이 같으면 정수로 표현 가능... => 정수값으로 반환. 
+
+def int_changer(value):
+    if int(value) == float(value):
+        return int(value)
+    else:
+        return float(value)
+
 def math_button_pressed(value):
     global operation 
     global temp_number
@@ -59,6 +67,9 @@ def equal_button_pressed():
             solution = temp_number+number
         else :
             solution = temp_number-number
+            
+        # int_changer() 함수를 한번 거쳐서 값 저장.
+        solution = int_changer(solution)
         number_entry.delete(0,'end')
         number_entry.insert(0,solution)
         print(temp_number,operation,number,"=",solution)
