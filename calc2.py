@@ -1,3 +1,4 @@
+from ast import operator
 from tkinter import *
 from tkinter import ttk
  
@@ -5,7 +6,8 @@ operation = ''
 temp_number = 0
 # 결과 출력 상태인지 상태저장.
 answer_trigger = False
- 
+
+
 def button_pressed(value):
     global temp_number
     global answer_trigger
@@ -79,13 +81,35 @@ def equal_button_pressed():
         answer_trigger = True
          
 def key_input(value):
+
+    # 쉬프트 키 입력 무시 (뎃셈할 때)
+    if not repr(value.char) == "''":
+        numbers = '1234567890'
+        operator = '/*+-'
+        # 숫자키, button_pressed() 함수 호출.
+        if value.char in numbers:
+            button_pressed(value.char)
+            print(value.char)
+        # 연잔사 입력시, math_button_pressed() 함수 호출
+        elif value.char in operator:
+            math_button_pressed(value.char)
+            print(value.char)
+        # 엔터키 ->=버튼
+        elif value.keysym == "Return":
+            equal_button_pressed()
+            print("equal button pressed")
+        # ESC 키 -> AC 버튼 입력.
+        elif value.keysym == "Escape":
+            button_pressed('AC')    
+            print('AC button pressed')
+        
     print(value)
     print(value.char)
     print(repr(value.char))
      
 root = Tk()
 root.title("Calculator")
-root.geometry("300x200")
+root.geometry("400x200")
 
 
 root.bind('<Key>',key_input)
